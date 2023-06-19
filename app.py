@@ -72,7 +72,7 @@ def main():
             recommended_anime_names = func_content_based_recommendation(selected_anime, topn)
             #list_of_recommended_anime = recommended_anime_names.to_list()
         # st.write(recommended_anime_names[['title', 'description']])
-            st.dataframe(recommended_anime_names)
+            Table(recommended_anime_names)
     elif type_sel == types[2]:
         def Table2(df2):
             fig=go.Figure(go.Table(columnorder = [1,2,3],
@@ -93,7 +93,7 @@ def main():
             recommended_anime_fuser = func_collaborative_recommendation(selected_anime_fuser, topn)
         #list_of_recommended_anime = recommended_anime_fuser.to_list()
         # st.write(recommended_anime_fuser[['title', 'description']])
-            st.dataframe(recommended_anime_fuser)
+            Table2(recommended_anime_fuser)
 main()  
 
 st.write('  '
