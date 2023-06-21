@@ -23,7 +23,7 @@ def func_content_based_recommendation(Name, topn, cosine_sim=cosine_sim):
     idx = anime_copy[anime_copy['Name'] == Name].index[0]
     sim_scores = sorted(list(enumerate(cosine_sim[idx])), reverse=True, key=lambda x: x[1])[1:topn+1]
     anime_indices = [i[0] for i in sim_scores]
-    return anime_df[['Name', 'Synopsis']].iloc[anime_indices]
+    return anime_df[['Name', 'Synopsis', 'Genres']].iloc[anime_indices]
 
 new_rating_df = rating_df.copy()
 
@@ -42,7 +42,7 @@ recommend.index = cmat.index
 def func_collaborative_recommendation(uid,topn):
     res = list(recommend.iloc[uid].sort_values(ascending=False)[0:topn].index)
     res = anime_df[anime_df['anime_id'].isin(res)]
-    res = res[['Name','Synopsis']]
+    res = res[['Name','Synopsis','Genres']]
     return res
 
 def main():
@@ -56,11 +56,11 @@ def main():
         def Table(df):
             fig=go.Figure(go.Table(columnorder = [1,2,3],
                 columnwidth = [1000,1000],
-                header=dict(values=['Name','Synopsis'],
+                header=dict(values=['Name','Synopsis','Genres'],
                     line_color='black',font=dict(color='white',size= 19),height=40,
                     fill_color='red',
                     align=['center','center']),
-                cells=dict(values=[df.Name,df.Synopsis],
+                cells=dict(values=[df.Name,df.Synopsis,df.Genres],
                     fill_color='#ffdac4',line_color='grey',
                     font=dict(color='black', family="Lato", size=16),
                     align='left')))
@@ -77,11 +77,11 @@ def main():
         def Table2(df2):
             fig=go.Figure(go.Table(columnorder = [1,2,3],
                 columnwidth = [1000,1000],
-                header=dict(values=['Name','Synopsis'],
+                header=dict(values=['Name','Synopsis','Genres'],
                     line_color='black',font=dict(color='white',size= 19),height=40,
                     fill_color='red',
                     align=['center','center']),
-                cells=dict(values=[df2.Name,df2.Synopsis],
+                cells=dict(values=[df2.Name,df2.Synopsis,df2.Genres],
                     fill_color='#ffdac4',line_color='grey',
                     font=dict(color='black', family="Lato", size=16),
                     align='left')))
